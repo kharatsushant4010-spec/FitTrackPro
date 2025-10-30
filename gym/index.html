@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FitTrack Pro - Dashboard</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-glow">💪</div>
+                <div class="brand-info">
+                    <h3>FitTrack Pro</h3>
+                    <p>Premium Gym Tracker</p>
+                </div>
+            </div>
+
+            <nav class="side-nav">
+                <button class="side-btn active" data-tab="dashboard">🏠 Dashboard</button>
+                <button class="side-btn" data-tab="profile">👤 Add Profile</button>
+                <button class="side-btn" data-tab="water">💧 Water</button>
+                <button class="side-btn" data-tab="meals">🍽️ Meals</button>
+                <button class="side-btn" data-tab="workout">🏋️ Workouts</button>
+            </nav>
+
+            <div class="sidebar-foot">
+                <small>© <span id="year"></span> FitTrack Pro</small>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <header class="main-header">
+                <h1>💪 FitTrack Pro</h1>
+                <p>Your Premium Gym & Wellness Companion</p>
+            </header>
+
+            <section id="dashboard" class="tab active">
+                <div class="glass-card">
+                    <h2>👥 All Users</h2>
+                    <div id="usersGrid" class="users-grid"></div>
+                </div>
+            </section>
+
+            <section id="profile" class="tab">
+                <div class="glass-card">
+                    <h2>📋 Create New Profile</h2>
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Full Name</label><input id="name" required placeholder="Enter your name" /></div>
+                            <div class="form-group"><label>Age</label><input id="age" type="number" required placeholder="Your age" /></div>
+                            <div class="form-group"><label>Gender</label>
+                                <select id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Height (cm)</label><input id="height" type="number" required placeholder="Height" /></div>
+                            <div class="form-group"><label>Current Weight (kg)</label><input id="weight" step="0.1" type="number" required placeholder="Current weight" /></div>
+                            <div class="form-group"><label>Target Weight (kg)</label><input id="targetWeight" step="0.1" type="number" required placeholder="Goal weight" /></div>
+                            <div class="form-group"><label>Fitness Goal</label>
+                                <select id="fitnessGoal" required>
+                                    <option value="">Select Goal</option>
+                                    <option value="weight_loss">Weight Loss</option>
+                                    <option value="muscle_gain">Muscle Gain</option>
+                                    <option value="maintenance">Maintenance</option>
+                                    <option value="endurance">Endurance</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Activity Level</label>
+                                <select id="activityLevel" required>
+                                    <option value="">Select Level</option>
+                                    <option value="sedentary">Sedentary</option>
+                                    <option value="light">Lightly Active</option>
+                                    <option value="moderate">Moderately Active</option>
+                                    <option value="very">Very Active</option>
+                                    <option value="extra">Extra Active</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary">💾 Save Profile</button>
+                            <button type="button" id="clearProfiles" class="btn ghost">🗑️ Clear All</button>
+                        </div>
+                    </form>
+
+                    <div id="profileSuccess" class="success-msg">✅ Profile created successfully!</div>
+                    <div id="bmiDisplay"></div>
+                </div>
+            </section>
+
+            <section id="water" class="tab">
+                <div class="glass-card">
+                    <h2>💧 Water Intake Tracker</h2>
+                    <p class="muted">Daily Goal: 8 glasses (2 liters) | Click glasses to track</p>
+                    <div id="waterGrid" class="water-grid"></div>
+
+                    <div class="progress-container">
+                        <div id="waterProgress" class="progress-bar" style="width:0%">0%</div>
+                    </div>
+
+                    <div class="row actions" style="margin-top:18px;">
+                        <button class="btn" id="resetWater">🔄 Reset</button>
+                        <button class="btn secondary" id="saveWater">💾 Save Data</button>
+                    </div>
+                    <div id="waterSuccess" class="success-msg">✅ Water data saved!</div>
+                </div>
+            </section>
+
+            <section id="meals" class="tab">
+                <div class="glass-card">
+                    <h2>🍽️ Meal Tracking</h2>
+                    <form id="mealForm" class="form-inline">
+                        <div class="form-grid-2">
+                            <div class="form-group"><label>Meal Type</label>
+                                <select id="mealType">
+                                    <option value="breakfast">🌅 Breakfast</option>
+                                    <option value="lunch">☀️ Lunch</option>
+                                    <option value="dinner">🌙 Dinner</option>
+                                    <option value="snack">🍿 Snack</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Meal Name</label><input id="mealName" required placeholder="What did you eat?" /></div>
+                            <div class="form-group"><label>Calories (kcal)</label><input id="mealCalories" type="number" required placeholder="Calories" /></div>
+                            <div class="form-group"><label>Protein (g)</label><input id="mealProtein" type="number" required placeholder="Protein grams" /></div>
+                        </div>
+
+                        <div class="form-actions"><button class="btn primary" type="submit">➕ Add Meal</button></div>
+                    </form>
+
+                    <div class="stats-grid">
+                        <div class="stat-card"><div id="totalCalories" class="stat-value">0</div><div class="stat-label">Calories Today</div></div>
+                        <div class="stat-card"><div id="totalProtein" class="stat-value">0</div><div class="stat-label">Protein (g)</div></div>
+                    </div>
+
+                    <div id="mealsList" class="item-list"></div>
+                </div>
+            </section>
+
+            <section id="workout" class="tab">
+                <div class="glass-card">
+                    <h2>🏋️ Workout Logger</h2>
+                    <form id="workoutForm" class="form-inline">
+                        <div class="form-grid-2">
+                            <div class="form-group"><label>Exercise Name</label><input id="exerciseName" required placeholder="e.g., Bench Press" /></div>
+                            <div class="form-group"><label>Type</label>
+                                <select id="exerciseType">
+                                    <option value="cardio">🏃 Cardio</option>
+                                    <option value="strength">💪 Strength</option>
+                                    <option value="flexibility">🧘 Flexibility</option>
+                                    <option value="sports">⚽ Sports</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Duration (min)</label><input id="duration" type="number" required placeholder="Minutes" /></div>
+                            <div class="form-group"><label>Calories Burned</label><input id="caloriesBurned" type="number" required placeholder="Estimated calories" /></div>
+                            <div class="form-group"><label>Sets</label><input id="sets" type="number" placeholder="Number of sets" /></div>
+                            <div class="form-group"><label>Reps</label><input id="reps" type="number" placeholder="Reps per set" /></div>
+                        </div>
+
+                        <div class="form-group full"><label>Notes</label><textarea id="workoutNotes" rows="3" placeholder="Any notes..."></textarea></div>
+                        <div class="form-actions"><button class="btn primary" type="submit">💪 Log Workout</button></div>
+                    </form>
+
+                    <div class="stats-grid">
+                        <div class="stat-card"><div id="totalWorkouts" class="stat-value">0</div><div class="stat-label">Total Workouts</div></div>
+                        <div class="stat-card"><div id="totalCaloriesBurned" class="stat-value">0</div><div class="stat-label">Calories Burned</div></div>
+                    </div>
+
+                    <div id="workoutsList" class="item-list"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
